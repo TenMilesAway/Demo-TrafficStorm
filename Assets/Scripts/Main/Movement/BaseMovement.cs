@@ -70,6 +70,7 @@ public abstract class BaseMovement : MonoBehaviour
         }
         else
         {
+            PoolMgr.GetInstance().PushObj(gameObject.name.ToString(), gameObject);
             isMoving = false;
         }
     }

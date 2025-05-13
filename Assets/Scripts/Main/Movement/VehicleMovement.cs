@@ -6,16 +6,10 @@ public class VehicleMovement : BaseMovement
 {
     public DirectionType startDirection;
 
-
     #region Unity ÉúÃüÖÜÆÚ
     protected override void Awake()
     {
         base.Awake();
-    }
-
-    private void Start()
-    {
-        InitializeVehicle(startDirection, movementType);
     }
     #endregion
 
