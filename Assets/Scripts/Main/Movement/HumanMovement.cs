@@ -6,10 +6,13 @@ public class HumanMovement : BaseMovement
 {
     public DirectionHumanType startDirection;
 
+    private Animator animator;
+
     #region Unity ÉúÃüÖÜÆÚ
     protected override void Awake()
     {
         base.Awake();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -32,6 +35,18 @@ public class HumanMovement : BaseMovement
         isMoving = true;
         pathPoints = HumanPathPresetSystem.GetPath(startDirection, movementType);
         transform.position = pathPoints[0];
+        transform.localScale = new Vector3(2.1f, 2.1f, 2.1f);
+        endurationLocalScale = new Vector3(0.4f, 0.4f, 0.4f);
+        ResetEnduranceUI();
+    }
+
+    public override void ChangeMoveState()
+    {
+        base.ChangeMoveState();
+        if (isMoving)
+            animator.SetBool("isMoving", true);
+        else
+            animator.SetBool("isMoving", false);
     }
     #endregion
 }

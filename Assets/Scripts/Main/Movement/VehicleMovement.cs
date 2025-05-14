@@ -31,10 +31,14 @@ public class VehicleMovement : BaseMovement
         // 设置初始旋转
         Vector3 initialDirection = (pathPoints[1] - pathPoints[0]).normalized;
         transform.rotation = Quaternion.LookRotation(initialDirection);
+        transform.localScale = Vector3.one;
+        endurationLocalScale = Vector3.one;
 
         // 同步转向状态
         targetRotation = transform.rotation;
         isTurning = false;
+
+        ResetEnduranceUI();
     }
     #endregion
 }
