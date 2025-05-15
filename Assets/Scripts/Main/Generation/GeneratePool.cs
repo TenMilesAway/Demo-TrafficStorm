@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GeneratePool : MonoBehaviour
 {
+    [SerializeField] private string VehicleRootPath;
+    [SerializeField] private string HumanRootPath;
+
     [SerializeField] private List<string> VehicleConfigs = new List<string>();
     [SerializeField] private List<string> HumanConfigs   = new List<string>();
 
@@ -16,8 +19,20 @@ public class GeneratePool : MonoBehaviour
 
     private float currentSpawnInterval;
     private float difficultyTimer;
+    private bool canGenerate = false;
+
+    private static GeneratePool instance;
+    public static GeneratePool GetInstance()
+    {
+        return instance;
+    }
 
     #region Unity 生命周期
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         currentSpawnInterval = initialSpawnInterval;
@@ -35,12 +50,24 @@ public class GeneratePool : MonoBehaviour
     }
     #endregion
 
+    #region Init Methods
+    public void InitData()
+    {
+        canGenerate = true;
+    }
+    #endregion
+
     #region Main Methods
     private IEnumerator SpawnRoutine()
     {
         while (true)
         {
             // 调用生成逻辑
+            if (!canGenerate)
+            {
+                yield return null;
+                continue;
+            }
             GenerateVehicle();
             GenerateHuman();
             yield return new WaitForSeconds(currentSpawnInterval);
@@ -51,14 +78,32 @@ public class GeneratePool : MonoBehaviour
     {
         int index = Random.Range(0, VehicleConfigs.Count);
 
-        if (VehicleConfigs.Count != 0) VehicleFactory.CreateProduct(VehicleConfigs[index]);
+        if (VehicleConfigs.Count != 0) VehicleFactory.CreateProduct(VehicleRootPath + VehicleConfigs[index]);
     }
 
     public void GenerateHuman()
     {
         int index = Random.Range(0, HumanConfigs.Count);
 
-        if (VehicleConfigs.Count != 0) HumanFactory.CreateProduct(HumanConfigs[index]);
+        if (VehicleConfigs.Count != 0) HumanFactory.CreateProduct(HumanRootPath + HumanConfigs[index]);
     }
+
+    public void StopGenerateForSeconds(float seconds)
+    {
+        StopGenerateForSecondsCo(seconds);
+    }
+
+    public IEnumerator StopGenerateForSecondsCo(float seconds)
+    {
+        StopGenerate();
+
+        yield return new WaitForSeconds(seconds);
+
+        StartGenerate();
+    }
+
+    public void StartGenerate() => canGenerate = true;
+    public void StopGenerate() => canGenerate = false;
+
     #endregion
 }

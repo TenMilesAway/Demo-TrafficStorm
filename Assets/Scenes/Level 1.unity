@@ -11666,13 +11666,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c278215b6f1a14aa8d01302fb9c7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VehicleRootPath: Prefab/Cars/
+  HumanRootPath: Prefab/Humans/
   VehicleConfigs:
-  - Prefab/Blue Racing Car
-  - Prefab/Orange Racing Car
+  - Blue Racing Car
+  - Orange Racing Car
+  - Emergency Ambulance
+  - Grey Bus
   HumanConfigs:
-  - Prefab/Lisa
-  - Prefab/Vivian
-  - Prefab/Zhong Li
+  - Lisa
+  - Vivian
+  - Zhong Li
   initialSpawnInterval: 3
   minSpawnInterval: 0.2
   difficultyIncreaseInterval: 5

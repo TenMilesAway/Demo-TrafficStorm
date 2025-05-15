@@ -49,6 +49,10 @@ public class StartPanel : BasePanel
     {
         UIManager.GetInstance().HidePanel("StartPanel");
         UIManager.GetInstance().ShowPanel<MainPanel>("MainPanel");
+
+        // ≥ı ºªØ
+        ItemManager.GetInstance().InitData();
+        GeneratePool.GetInstance().InitData();
     }
     #endregion
 }

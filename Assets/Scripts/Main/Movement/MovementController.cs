@@ -37,9 +37,25 @@ public class MovementController : MonoBehaviour
             return;
 
         var target = hit.collider.GetComponentInParent<BaseMovement>();
-        Debug.Log(hit);
         AnimateClick(target.transform);
-        target.ChangeMoveState();
+
+        // 碰撞道具卡
+        if (ItemManager.GetInstance().RemoveCollisionState)
+        {
+            ItemManager.GetInstance().UseItem(ItemType.RemoveCollision, target.gameObject);
+            ItemManager.GetInstance().RemoveCollisionState = false;
+        }
+        // 加速道具卡
+        else if (ItemManager.GetInstance().SpeedUpState)
+        {
+            ItemManager.GetInstance().UseItem(ItemType.SpeedUp, target.gameObject);
+            ItemManager.GetInstance().SpeedUpState = false;
+        }
+        // 普通点击
+        else
+        {
+            target.ChangeMoveState();
+        }
     }
 
     private void AnimateClick(Transform target)

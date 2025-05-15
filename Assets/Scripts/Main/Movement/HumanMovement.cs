@@ -35,9 +35,15 @@ public class HumanMovement : BaseMovement
         isMoving = true;
         pathPoints = HumanPathPresetSystem.GetPath(startDirection, movementType);
         transform.position = pathPoints[0];
+        speedMultiplier = 1f;
         transform.localScale = new Vector3(2.1f, 2.1f, 2.1f);
         endurationLocalScale = new Vector3(0.4f, 0.4f, 0.4f);
+
+        // 重置倒计时提示
         ResetEnduranceUI();
+
+        // 重置碰撞卡效果
+        GetComponent<Collider>().enabled = true;
     }
 
     public override void ChangeMoveState()
@@ -47,6 +53,18 @@ public class HumanMovement : BaseMovement
             animator.SetBool("isMoving", true);
         else
             animator.SetBool("isMoving", false);
+    }
+
+    public override void ChangeToMoving()
+    {
+        base.ChangeToMoving();
+        animator.SetBool("isMoving", true);
+    }
+
+    public override void ChangeToIdle()
+    {
+        base.ChangeToIdle();
+        animator.SetBool("isMoving", false);
     }
     #endregion
 }

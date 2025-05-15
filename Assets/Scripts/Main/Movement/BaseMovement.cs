@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class BaseMovement : MonoBehaviour
 {
+    public bool IsBoosted { get; protected set; }
+
     public MovementType movementType;          // 运动类型枚举
 
     public List<Vector3> pathPoints;           // 路径点集合
@@ -12,6 +14,7 @@ public abstract class BaseMovement : MonoBehaviour
     public float moveSpeed = 5f;               // 移动速度
     public float rotateSpeed = 360f;           // 旋转速度
     public float enduranceTime = 3f;           // 倒计时
+    public float speedMultiplier = 1f;         // 速度倍率
 
     protected Vector3 moveDirection;           // 移动方向向量
     protected Vector3 endurationLocalScale;    // 倒计时大小
@@ -39,6 +42,8 @@ public abstract class BaseMovement : MonoBehaviour
     #endregion
 
     #region Main Methods
+    protected abstract void Initialize();
+
     protected virtual void StartTurn(Vector3 targetPoint)
     {
         isTurning = true;
@@ -67,7 +72,7 @@ public abstract class BaseMovement : MonoBehaviour
             }
             else
             {
-                transform.position += moveDirection * moveSpeed * Time.deltaTime;
+                transform.position += moveDirection * moveSpeed * Time.deltaTime * speedMultiplier;
                 if (isTurning)
                 {
                     // 平滑转向
@@ -147,7 +152,6 @@ public abstract class BaseMovement : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-        textEnduranceTime.color = Color.white;
     }
 
     public virtual void ChangeMoveState()
@@ -159,6 +163,28 @@ public abstract class BaseMovement : MonoBehaviour
             ResetEnduranceUI();
     }
 
-    protected abstract void Initialize();
+    public virtual void ChangeToMoving()
+    {
+        isMoving = true;
+    }
+
+    public virtual void ChangeToIdle()
+    {
+        isMoving = false;
+    }
+
+    public virtual void ApplySpeedBoost(float multiplier, float duration)
+    {
+        if (!IsBoosted) StartCoroutine(SpeedBoostRoutine(multiplier, duration));
+    }
+
+    protected virtual IEnumerator SpeedBoostRoutine(float multiplier, float duration)
+    {
+        IsBoosted = true;
+        speedMultiplier *= multiplier;
+        yield return new WaitForSeconds(duration);
+        speedMultiplier = 1;
+        IsBoosted = false;
+    }
     #endregion
 }
