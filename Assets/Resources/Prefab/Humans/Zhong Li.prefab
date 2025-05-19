@@ -1180,10 +1180,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementType: 0
+  bonusType: 0
   pathPoints: []
+  target: {x: 0, y: 0, z: 0}
   moveSpeed: 5
   rotateSpeed: 360
   enduranceTime: 3
+  speedMultiplier: 1
   enduranceTextOffset: {x: 0, y: 2, z: 0}
   startDirection: 0
 --- !u!114 &7192987337202618658

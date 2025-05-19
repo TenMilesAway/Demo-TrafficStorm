@@ -8,6 +8,8 @@ public class VehicleMovement : BaseMovement
 
     private SpriteRenderer arrowSprite;
 
+    private Vector3 localScale;
+
     #region Unity 生命周期
     protected override void Awake()
     {
@@ -21,6 +23,7 @@ public class VehicleMovement : BaseMovement
     {
         startDirection = directionType;
         movementType = moveType;
+        localScale = transform.localScale;
         Initialize();
     }
 
@@ -37,8 +40,8 @@ public class VehicleMovement : BaseMovement
         // 设置初始旋转
         Vector3 initialDirection = (pathPoints[1] - pathPoints[0]).normalized;
         transform.rotation = Quaternion.LookRotation(initialDirection);
-        transform.localScale = Vector3.one;
-        endurationLocalScale = Vector3.one;
+        transform.localScale = localScale;
+        endurationLocalScale = localScale;
 
         // 同步转向状态
         targetRotation = transform.rotation;

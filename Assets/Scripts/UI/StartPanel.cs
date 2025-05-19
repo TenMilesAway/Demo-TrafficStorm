@@ -16,6 +16,8 @@ public class StartPanel : BasePanel
     {
         InitUI();
         InitListeners();
+
+        MusicMgr.GetInstance().PlayBkMusic("cake");
     }
 
     protected override void OnDestroy()
@@ -49,6 +51,9 @@ public class StartPanel : BasePanel
     {
         UIManager.GetInstance().HidePanel("StartPanel");
         UIManager.GetInstance().ShowPanel<MainPanel>("MainPanel");
+
+        MusicMgr.GetInstance().PlaySound("buttonOn", false);
+        MusicMgr.GetInstance().PlayBkMusic("one");
 
         // ≥ı ºªØ
         ItemManager.GetInstance().InitData();

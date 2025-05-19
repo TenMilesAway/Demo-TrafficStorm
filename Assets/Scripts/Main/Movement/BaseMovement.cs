@@ -8,8 +8,10 @@ public abstract class BaseMovement : MonoBehaviour
     public bool IsBoosted { get; protected set; }
 
     public MovementType movementType;          // 运动类型枚举
+    public BonusType bonusType;                // 获得奖励枚举
 
     public List<Vector3> pathPoints;           // 路径点集合
+    public Vector3 target;
 
     public float moveSpeed = 5f;               // 移动速度
     public float rotateSpeed = 360f;           // 旋转速度
@@ -58,6 +60,7 @@ public abstract class BaseMovement : MonoBehaviour
         if (currentTargetIndex < pathPoints.Count)
         {
             Vector3 targetPoint = pathPoints[currentTargetIndex];
+            target = targetPoint;
             // 到达当前路径点
             if (Vector3.Distance(transform.position, targetPoint) < 0.1f)
             {
@@ -86,6 +89,8 @@ public abstract class BaseMovement : MonoBehaviour
         {
             PoolMgr.GetInstance().PushObj(gameObject.name.ToString(), gameObject);
             isMoving = false;
+            EventCenter.GetInstance().EventTrigger<BonusType>("AddScore", bonusType);
+            EventCenter.GetInstance().EventTrigger("UpdateUI");
         }
     }
 
@@ -97,7 +102,7 @@ public abstract class BaseMovement : MonoBehaviour
         enduranceCoroutinue = StartCoroutine(EnduraceCountdown());
     }
 
-    protected virtual void ResetEnduranceUI()
+    public virtual void ResetEnduranceUI()
     {
         if (enduranceCoroutinue != null)
             StopCoroutine(enduranceCoroutinue);

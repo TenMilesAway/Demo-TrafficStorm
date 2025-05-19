@@ -36,7 +36,7 @@ public class MovementController : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hit, 100f))
             return;
 
-        var target = hit.collider.GetComponentInParent<BaseMovement>();
+        BaseMovement target = hit.collider.GetComponentInParent<BaseMovement>();
         AnimateClick(target.transform);
 
         // 碰撞道具卡
@@ -44,18 +44,24 @@ public class MovementController : MonoBehaviour
         {
             ItemManager.GetInstance().UseItem(ItemType.RemoveCollision, target.gameObject);
             ItemManager.GetInstance().RemoveCollisionState = false;
+            target.ResetEnduranceUI();
         }
         // 加速道具卡
         else if (ItemManager.GetInstance().SpeedUpState)
         {
             ItemManager.GetInstance().UseItem(ItemType.SpeedUp, target.gameObject);
             ItemManager.GetInstance().SpeedUpState = false;
+            target.ResetEnduranceUI();
         }
         // 普通点击
         else
         {
             target.ChangeMoveState();
         }
+
+        MusicMgr.GetInstance().PlaySound("click", false);
+
+        EventCenter.GetInstance().EventTrigger("ResetSelectedItem");
     }
 
     private void AnimateClick(Transform target)

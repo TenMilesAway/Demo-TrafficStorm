@@ -864,8 +864,8 @@ Transform:
   m_GameObject: {fileID: 9180137116168141535}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 12.396872, y: -0.09999943, z: 56.46134}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5364394093994970548}
   - {fileID: 3525856253773627826}
@@ -904,10 +904,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementType: 0
+  bonusType: 0
   pathPoints: []
+  target: {x: 0, y: 0, z: 0}
   moveSpeed: 5
-  rotateSpeed: 360
+  rotateSpeed: 1080
   enduranceTime: 3
+  speedMultiplier: 1
   enduranceTextOffset: {x: 0, y: 2, z: 0.25}
   startDirection: 0
 --- !u!114 &8611965213788484549

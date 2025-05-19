@@ -77,6 +77,8 @@ public class GeneratePool : MonoBehaviour
     public void GenerateVehicle()
     {
         int index = Random.Range(0, VehicleConfigs.Count);
+        if (index == 3)
+            index = Random.Range(0, VehicleConfigs.Count);
 
         if (VehicleConfigs.Count != 0) VehicleFactory.CreateProduct(VehicleRootPath + VehicleConfigs[index]);
     }
@@ -85,7 +87,11 @@ public class GeneratePool : MonoBehaviour
     {
         int index = Random.Range(0, HumanConfigs.Count);
 
-        if (VehicleConfigs.Count != 0) HumanFactory.CreateProduct(HumanRootPath + HumanConfigs[index]);
+        int ran = Random.Range(0, 8);
+        if (ran == 0)
+        {
+            if (VehicleConfigs.Count != 0) HumanFactory.CreateProduct(HumanRootPath + HumanConfigs[index]);
+        }
     }
 
     public void StopGenerateForSeconds(float seconds)

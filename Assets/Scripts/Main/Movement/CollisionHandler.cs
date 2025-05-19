@@ -11,5 +11,9 @@ public class CollisionHandler : MonoBehaviour
 
         // 这里可以去加特效和音效
         PoolMgr.GetInstance().PushObj(gameObject.name.ToString(), gameObject);
+
+        EventCenter.GetInstance().EventTrigger("UpdateHealth", 0.5f);
+
+        MusicMgr.GetInstance().PlaySound("collision", false);
     }
 }

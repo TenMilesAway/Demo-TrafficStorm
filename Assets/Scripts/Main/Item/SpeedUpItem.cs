@@ -6,7 +6,7 @@ public class SpeedUpItem : IItem
 {
     public ItemType Type => ItemType.SpeedUp;
 
-    private float speedBoostMultiplier = 3f;
+    private float speedBoostMultiplier = 2f;
     private float boostDuration = 2f;
 
     public void Use(GameObject target)
