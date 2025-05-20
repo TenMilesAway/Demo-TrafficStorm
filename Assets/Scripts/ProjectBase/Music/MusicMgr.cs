@@ -139,4 +139,14 @@ public class MusicMgr : BaseManager<MusicMgr>
             GameObject.Destroy(source);
         }
     }
+
+    public float GetBKValue()
+    {
+        return bkValue;
+    }
+
+    public float GetSFXValue()
+    {
+        return soundValue;
+    }
 }

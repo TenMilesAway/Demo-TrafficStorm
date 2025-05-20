@@ -24,27 +24,37 @@ public class StopPanel : BasePanel
     protected override void InitUI()
     {
         btnContinue = GetControl<Button>("btnContinue");
-        btnRestart  = GetControl<Button>("btnRestart");
 
         AddListeners();
     }
 
     private void AddListeners()
     {
-        btnContinue.onClick.AddListener(onContinue);
+        btnContinue.onClick.AddListener(OnContinue);
     }
 
     private void RemoveListeners()
     {
-
+        btnContinue.onClick.RemoveListener(OnContinue);
     }
     #endregion
 
     #region Main Methods
-    private void onContinue()
+    private void OnContinue()
     {
         UIManager.GetInstance().HidePanel("StopPanel");
         Time.timeScale = 1f;
+    }
+
+    private void OnRestart()
+    {
+        UIManager.GetInstance().GetPanel<MainPanel>("MainPanel").DestoryAll();
+
+        UIManager.GetInstance().HidePanel("StopPanel");
+        UIManager.GetInstance().HidePanel("MainPanel");
+        UIManager.GetInstance().ShowPanel<MainPanel>("MainPanel");
+        
+        MusicMgr.GetInstance().PlaySound("buttonOn", false);
     }
     #endregion
 }

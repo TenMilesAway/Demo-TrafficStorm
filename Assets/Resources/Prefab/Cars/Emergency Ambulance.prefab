@@ -427,7 +427,7 @@ MonoBehaviour:
   pathPoints: []
   target: {x: 0, y: 0, z: 0}
   moveSpeed: 15
-  rotateSpeed: 1080
+  rotateSpeed: 720
   enduranceTime: 3
   speedMultiplier: 1
   enduranceTextOffset: {x: 0, y: 3.75, z: 1.25}

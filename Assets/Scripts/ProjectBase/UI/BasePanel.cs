@@ -28,6 +28,9 @@ public class BasePanel : MonoBehaviour
         FindChildrenControl<TMP_InputField>();
         FindChildrenControl<TMP_Dropdown>();
 
+        FindChildrenControl<TextMeshPro>();
+        FindChildrenControl<TextMeshProUGUI>();
+
         // 初始化 UI
         InitUI();
     }

@@ -18,6 +18,7 @@ public class MainPanel : BasePanel
     private TMP_Text textRoadBlockNum;
     private TMP_Text textSpeedUpNum;
 
+    private Button btnBack;
     private Button btnStop;
     private Button btnSetting;
     private Button btnRemoveCollision;
@@ -39,6 +40,10 @@ public class MainPanel : BasePanel
         currentScore = 0;
         currentHealth = InitialHealth;
 
+        // 初始化
+        ItemManager.GetInstance().InitData();
+        GeneratePool.GetInstance().InitData();
+
         textScore.text = currentScore.ToString();
         textRemoveCollisionNum.text = ItemManager.GetInstance().GetItemAmount(ItemType.RemoveCollision).ToString();
         textRoadBlockNum.text       = ItemManager.GetInstance().GetItemAmount(ItemType.RoadBlock).ToString();
@@ -46,6 +51,8 @@ public class MainPanel : BasePanel
 
         AddListeners();
         EventCenter.GetInstance().EventTrigger("UpdateUI");
+
+        MusicMgr.GetInstance().PlayBkMusic("one");
     }
 
     protected override void OnDestroy()
@@ -65,6 +72,7 @@ public class MainPanel : BasePanel
         btnRemoveCollision = GetControl<Button>("btnRemoveCollision");
         btnRoadBlock       = GetControl<Button>("btnRoadBlock");
         btnSpeedUp         = GetControl<Button>("btnSpeedUp");
+        btnBack            = GetControl<Button>("btnBack");
         btnStop            = GetControl<Button>("btnStop");
         btnSetting         = GetControl<Button>("btnSetting");
 
@@ -87,6 +95,7 @@ public class MainPanel : BasePanel
         btnSpeedUp.onClick.AddListener(OnSpeedUp);
         btnSetting.onClick.AddListener(OnSetting);
         btnStop.onClick.AddListener(OnStop);
+        btnBack.onClick.AddListener(OnBack);
 
         EventCenter.GetInstance().AddEventListener("UpdateUI", UpdateUI);
         EventCenter.GetInstance().AddEventListener<BonusType>("AddScore", AddScore);
@@ -101,6 +110,7 @@ public class MainPanel : BasePanel
         btnSpeedUp.onClick.RemoveListener(OnSpeedUp);
         btnSetting.onClick.RemoveListener(OnSetting);
         btnStop.onClick.RemoveListener(OnStop);
+        btnBack.onClick.RemoveListener(OnBack);
 
         EventCenter.GetInstance().RemoveEventListener("UpdateUI", UpdateUI);
         EventCenter.GetInstance().RemoveEventListener<BonusType>("AddScore", AddScore);
@@ -127,7 +137,11 @@ public class MainPanel : BasePanel
 
     private void OnSetting()
     {
-        UIManager.GetInstance().ShowPanel<SettingPanel>("SettingPanel");
+        UIManager.GetInstance().ShowPanel<SettingPanel>("SettingPanel", E_UI_Layer.Top, (panel) =>
+        {
+            panel.SetMusicValue(MusicMgr.GetInstance().GetBKValue() * 100);
+            panel.SetSFXValue(MusicMgr.GetInstance().GetSFXValue() * 100);
+        });
         Time.timeScale = 0f;
     }
 
@@ -135,6 +149,14 @@ public class MainPanel : BasePanel
     {
         UIManager.GetInstance().ShowPanel<StopPanel>("StopPanel");
         Time.timeScale = 0f;
+    }
+
+    private void OnBack()
+    {
+        DestoryAll();
+
+        UIManager.GetInstance().HidePanel("MainPanel");
+        UIManager.GetInstance().ShowPanel<StartPanel>("StartPanel");
     }
 
     private void OnItemButtonClick(Button btn, ItemType type)
@@ -246,6 +268,12 @@ public class MainPanel : BasePanel
         // 血条更新
         currentHealth -= amount;
         UpdateUI();
+
+        if (currentHealth == 0f)
+        {
+            print(currentHealth);
+            GameOver();
+        }
     }
 
     private void AddScore(BonusType type)
@@ -277,6 +305,27 @@ public class MainPanel : BasePanel
         }
 
         ItemManager.GetInstance().AddItemByPro(1, proOfGettingItems);
+    }
+
+    private void GameOver()
+    {
+        DestoryAll();
+        // 记录当前分数
+
+        // 展示结束 UI
+        UIManager.GetInstance().ShowPanel<GameOverPanel>("GameOverPanel");
+    }
+
+    public void DestoryAll()
+    {
+        // 停止对象池生成
+        GeneratePool.GetInstance().StopGenerate();
+        // 获得场景所有 BaseMovement，销毁
+        BaseMovement[] allEntities = Transform.FindObjectsOfType<BaseMovement>();
+        foreach (BaseMovement entity in allEntities)
+        {
+            Destroy(entity.gameObject);
+        }
     }
     #endregion
 }

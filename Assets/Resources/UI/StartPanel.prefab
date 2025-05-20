@@ -459,7 +459,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5546\u5E97"
+  m_text: "\u8BBE\u7F6E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2838b42685748e444ab31c227431b819, type: 2}
   m_sharedMaterial: {fileID: -8524027837344872298, guid: 2838b42685748e444ab31c227431b819, type: 2}
@@ -981,7 +981,7 @@ GameObject:
   - component: {fileID: 8061161030334096765}
   - component: {fileID: 8061161030334096766}
   m_Layer: 5
-  m_Name: btnShop
+  m_Name: btnSetting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1226,7 +1226,7 @@ GameObject:
   - component: {fileID: 8061161030384824422}
   - component: {fileID: 8061161030384824423}
   m_Layer: 5
-  m_Name: imgShop
+  m_Name: imgSetting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1280,7 +1280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300078, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  m_Sprite: {fileID: 21300076, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
