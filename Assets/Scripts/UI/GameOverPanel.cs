@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameOverPanel : BasePanel
 {
     private Button btnBack;
     private Button btnRestart;
+
+    private TextMeshProUGUI textScore;
 
     private bool isListenersAlready = false;
 
@@ -27,6 +30,8 @@ public class GameOverPanel : BasePanel
     {
         btnBack = GetControl<Button>("btnBack");
         btnRestart = GetControl<Button>("btnRestart");
+
+        textScore = GetControl<TextMeshProUGUI>("textScore");
 
         AddListeners();
     }
@@ -52,7 +57,7 @@ public class GameOverPanel : BasePanel
     #endregion
 
     #region Main Methods
-    public void OnBackStart()
+    private void OnBackStart()
     {
         btnBack.image.color = Color.white;
         UIManager.GetInstance().HidePanel("GameOverPanel");
@@ -69,6 +74,11 @@ public class GameOverPanel : BasePanel
         UIManager.GetInstance().ShowPanel<MainPanel>("MainPanel");
 
         MusicMgr.GetInstance().PlaySound("buttonOn", false);
+    }
+
+    public void SetScore(int score)
+    {
+        textScore.text = score.ToString();
     }
     #endregion
 }

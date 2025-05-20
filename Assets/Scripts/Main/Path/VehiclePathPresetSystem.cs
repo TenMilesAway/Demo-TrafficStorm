@@ -32,7 +32,7 @@ public class PathPreset
 public class VehiclePathPresetSystem : MonoBehaviour
 {
     [SerializeField] private List<PathPreset> VehiclePaths = new List<PathPreset>();
-    [SerializeField] [field: Range(1f, 20f)] [Tooltip("插值数")] private int curveResolution;
+    [SerializeField] [field: Range(1f, 40f)] [Tooltip("插值数")] private int curveResolution;
 
     private static readonly Dictionary<string, List<Vector3>> pathCache = new Dictionary<string, List<Vector3>>();
 

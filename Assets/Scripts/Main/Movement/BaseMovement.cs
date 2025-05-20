@@ -62,7 +62,7 @@ public abstract class BaseMovement : MonoBehaviour
             Vector3 targetPoint = pathPoints[currentTargetIndex];
             target = targetPoint;
             // 到达当前路径点
-            if (Vector3.Distance(transform.position, targetPoint) < 0.2f)
+            if (Vector3.Distance(transform.position, targetPoint) < 0.5f)
             {
                 currentTargetIndex++;
                 // 到达以后，切换下个路径点

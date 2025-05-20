@@ -44,12 +44,14 @@ public class StartPanel : BasePanel
     {
         btnStart.onClick.AddListener(OnStart);
         btnSetting.onClick.AddListener(OnSetting);
+        btnRank.onClick.AddListener(OnRank);
     }
 
     private void RemoveListeners()
     {
         btnStart.onClick.RemoveListener(OnStart);
         btnSetting.onClick.RemoveListener(OnSetting);
+        btnRank.onClick.RemoveListener(OnRank);
     }
     #endregion
 
@@ -69,6 +71,13 @@ public class StartPanel : BasePanel
             panel.SetMusicValue(MusicMgr.GetInstance().GetBKValue() * 100);
             panel.SetSFXValue(MusicMgr.GetInstance().GetSFXValue() * 100);
         });
+
+        MusicMgr.GetInstance().PlaySound("buttonOn", false);
+    }
+
+    private void OnRank()
+    {
+        UIManager.GetInstance().ShowPanel<RankPanel>("RankPanel", E_UI_Layer.Top);
 
         MusicMgr.GetInstance().PlaySound("buttonOn", false);
     }

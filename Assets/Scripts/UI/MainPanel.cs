@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using WeChatWASM;
 
 public class MainPanel : BasePanel
 {
@@ -311,9 +312,12 @@ public class MainPanel : BasePanel
     {
         DestoryAll();
         // 记录当前分数
-
+        SendScore(currentScore);
         // 展示结束 UI
-        UIManager.GetInstance().ShowPanel<GameOverPanel>("GameOverPanel");
+        UIManager.GetInstance().ShowPanel<GameOverPanel>("GameOverPanel", E_UI_Layer.Top, (panel) => 
+        {
+            panel.SetScore(currentScore);
+        });
     }
 
     public void DestoryAll()
@@ -326,6 +330,18 @@ public class MainPanel : BasePanel
         {
             Destroy(entity.gameObject);
         }
+    }
+
+    private void SendScore(int score)
+    {
+        OpenDataMessage msgData = new OpenDataMessage();
+
+        msgData.type = "setUserRecord";
+        msgData.score = score;
+        msgData.rankType = "gameScore";
+
+        string msg = JsonUtility.ToJson(msgData);
+        WX.GetOpenDataContext().PostMessage(msg);
     }
     #endregion
 }
