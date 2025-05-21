@@ -16,7 +16,19 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: d711fa0473d8189468a82c0f7c443447
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: f2e75baaa7141d1459b20bb0c1140221
+    m_Address: UI/Canvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dc636f4d3c3c82e43bfe3d6553c1383a
+    m_Address: UI/EventSystem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cea1c97c96b4d0149ad61d89a7d156eb
+    m_Address: UI/StartPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 393285a55884c0342bb0f280a164ac19, type: 2}
   m_SchemaSet:

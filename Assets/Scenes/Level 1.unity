@@ -11569,7 +11569,7 @@ MonoBehaviour:
     endPoint: {fileID: 897246153}
     radius: 3.5
     turnCenter: {fileID: 57065013}
-  curveResolution: 40
+  curveResolution: 10
 --- !u!114 &1547799258
 MonoBehaviour:
   m_ObjectHideFlags: 0

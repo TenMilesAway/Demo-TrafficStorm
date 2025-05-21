@@ -20,7 +20,7 @@ public class StartPanel : BasePanel
         InitUI();
         AddListeners();
 
-        StartCoroutine(TMPRoutine());
+        //StartCoroutine(TMPRoutine());
 
         MusicMgr.GetInstance().PlayBkMusic("cake");
     }

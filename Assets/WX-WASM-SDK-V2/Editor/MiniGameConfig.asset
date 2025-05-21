@@ -15,7 +15,7 @@ MonoBehaviour:
   ProjectConf:
     projectName: "\u8DEF\u53E3\u98CE\u66B4"
     Appid: wx15c173287d4929f2
-    CDN: http://10.153.72.61:8001
+    CDN: https://636c-cloud1-7gdx55y192c92352-1360288761.tcb.qcloud.la/webgl/
     assetLoadType: 0
     compressDataPackage: 1
     VideoUrl: 
